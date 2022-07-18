@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "18904486721",
+    "project_id": "apka-928bf",
+    "storage_bucket": "apka-928bf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:18904486721:android:0055abbc2c9944d80747c0",
+        "android_client_info": {
+          "package_name": "com.example.apka"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "18904486721-n1skncfda7uobouod81ftnv2r8g4rg20.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB60Gs-am08RKVvgz1Nfut7RNfzCV-py1E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "18904486721-n1skncfda7uobouod81ftnv2r8g4rg20.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
