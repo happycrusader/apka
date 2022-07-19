@@ -1,6 +1,7 @@
 import 'package:apka/constants/routes.dart';
+import 'package:apka/services/auth/auth_exceptions.dart';
+import 'package:apka/services/auth/auth_service.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 import '../utilites/show_error_dialog.dart';
 
@@ -56,12 +57,13 @@ class _LoginViewState extends State<LoginView> {
               final email = _email.text;
               final password = _password.text;
               try {
-                await FirebaseAuth.instance.signInWithEmailAndPassword(
+                AuthService.firebase().logIn(
                   email: email,
                   password: password,
                 );
-                final user = FirebaseAuth.instance.currentUser;
-                if (user?.emailVerified ?? false) {
+
+                final user = AuthService.firebase().currentUser;
+                if (user?.isEmailVerified ?? false) {
                   //zweryfikowany użytkownik
                   Navigator.of(context).pushNamedAndRemoveUntil(
                     notesRoute,
@@ -74,27 +76,20 @@ class _LoginViewState extends State<LoginView> {
                     (route) => false,
                   );
                 }
-              } on FirebaseAuthException catch (e) {
-                if (e.code == 'user-not-found') {
-                  await showErrorDialog(
-                    context,
-                    'Nie znaleziono użytkownika',
-                  );
-                } else if (e.code == 'wrong-password') {
-                  await showErrorDialog(
-                    context,
-                    'Niepoprawne email lub hasło ',
-                  );
-                } else {
-                  await showErrorDialog(
-                    context,
-                    'Błąd: ${e.code}',
-                  );
-                }
-              } catch (e) {
+              } on UserNotFoundAuthException {
                 await showErrorDialog(
                   context,
-                  e.toString(),
+                  'Nie znaleziono użytkownika',
+                );
+              } on WrongPasswordAuthException {
+                await showErrorDialog(
+                  context,
+                  'Niepoprawne hasło ',
+                );
+              } on GenericAuthException {
+                await showErrorDialog(
+                  context,
+                  'Błąd uwierzytelniania',
                 );
               }
             },

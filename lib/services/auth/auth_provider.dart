@@ -1,6 +1,7 @@
 import 'package:apka/services/auth/auth_user.dart';
 
 abstract class AuthProvider {
+  Future<void> Initialize();
   AuthUser? get currentUser;
   Future<AuthUser?> logIn({
     required String email,
